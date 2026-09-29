@@ -16,16 +16,17 @@ int main(){
 	 avg= (sub1+sub2+sub3)/3;
 	
 	 switch(avg/10){
-		 case 90 ... 100 :
+		 case 9 :
+         case 10://so that if 100 then gets 10 after integer div
 		 grade='A';
 		 break;
-		 case 80 ... 89 :
+		 case 8 :
 		 	grade='B';
 		 	break;
-		 case 70 ... 79 :
+		 case 7 :
 		 	grade='C';
 		 	break;
-		 case 60 ... 69 :
+		 case 6 :
 		 	grade='D';
 		 	break;
 		 default : grade='F';
