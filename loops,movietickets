@@ -1,0 +1,60 @@
+#include <stdio.h>
+int main (){
+int  age, category,  base, day;
+float child_dis=0.0, senior_dis=0.0, bonus_dis_amount=0.0, final, total_dis_amount=0.0;
+
+printf("Enter age:");
+scanf("%d",&age);
+printf("Enter movie category (1=Regular, 2=3D, 3=Premiere show): ");
+scanf("%d",&category);
+printf("Enter day of the month (number 1 till 31): ");
+scanf("%d",&day);
+
+while (age!=0){
+
+if(category>=1 && category<=3 && day>=1 && day<=31){
+	
+switch(category){
+	case 1 : //regular
+	base= 500;
+	break;
+	case 2: //3d
+	base=800;
+	break;
+	case 3: //premiere
+	base=1200;
+	break;
+}	
+if (age<13){
+	child_dis= 0.3;
+}
+else{
+	child_dis= 0.0;}
+	
+if (age>=60){
+    	senior_dis=0.2;
+}else{
+		senior_dis=0.0;
+}
+
+if (day%5==0){
+	printf("Bonus day\n");
+	bonus_dis_amount= 50.0;
+} else{
+	bonus_dis_amount=0.0;
+}
+total_dis_amount=base*child_dis+base*senior_dis+bonus_dis_amount;
+final= base-total_dis_amount;
+if (final<100){
+	final=100;
+}
+printf("Total discount: %.2f\n",total_dis_amount);
+printf("Final amount payable: %.2f\n",final);
+}else {
+	printf("Invalid category or day of the month entered.\n");
+}
+printf("Enter age or 0 to exit: ");
+scanf("%d",&age);
+}
+return 0;
+}
