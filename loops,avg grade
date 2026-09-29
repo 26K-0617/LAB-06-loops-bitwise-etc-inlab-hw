@@ -1,0 +1,40 @@
+#include <stdio.h>
+int main(){
+	int students,count, sub1,sub2,sub3, avg;
+	char grade;
+	printf("Enter number of students: ");
+	scanf("%d",&students);
+	count=1;
+	while (count<=students){
+     printf("\nSTUDENT NO.: %d\n", count);
+	 printf("Enter marks out of 100 in subject 1: ");
+	 scanf("%d",&sub1);
+	 printf("Enter marks out of 100 in subject 2: ");
+	 scanf("%d",&sub2);
+	 printf("Enter marks out of 100 in subject 3: ");
+	 scanf("%d",&sub3);
+	 avg= (sub1+sub2+sub3)/3;
+	
+	 switch(avg/10){
+		 case 90 ... 100 :
+		 grade='A';
+		 break;
+		 case 80 ... 89 :
+		 	grade='B';
+		 	break;
+		 case 70 ... 79 :
+		 	grade='C';
+		 	break;
+		 case 60 ... 69 :
+		 	grade='D';
+		 	break;
+		 default : grade='F';
+	   }
+	 printf("Average: %d\n", avg);
+	 printf("Grade: %c\n", grade);
+	 printf("Final status: %s\n",(avg>=60 && sub1>=40 && sub2>=40 && sub3>=40)? "Passed" : "Failed" );
+	 count++;	
+   }	
+   
+return 0;
+}
