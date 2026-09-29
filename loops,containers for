@@ -1,0 +1,12 @@
+#include <stdio.h>
+int main() {
+    int container_no, count;
+    printf("Enter number of containers: ");
+    scanf("%d",&container);
+    for(count=1;count<=container_no ; count++){
+
+        
+ }
+    
+    return 0;
+}
