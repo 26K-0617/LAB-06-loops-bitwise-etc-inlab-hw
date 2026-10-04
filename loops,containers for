@@ -1,12 +1,46 @@
 #include <stdio.h>
 int main() {
-    int container_no, count;
+    int container, count, cargo, rem1, rem2, loaded;
+    float weight;
     printf("Enter number of containers: ");
     scanf("%d",&container);
-    for(count=1;count<=container_no ; count++){
-
-        
- }
-    
-    return 0;
+for (count=1; count<=container ; count++){
+	loaded=0; //so that in first loop if loaded is 1 to the next loop it resets back to 0
+    printf("\nContainer: %d\n", count);
+	printf("Enter weight of container in Kilograms:");
+    scanf("%f",&weight);
+    printf("Enter cargo type (1=General goods, 2=Hazardous materials, 3=Refrigerated Goods): ");
+    scanf("%d",&cargo);
+    switch (cargo){
+    	case 1 : //general
+    	if (weight<=20000){
+    		//can be loaded 
+    		loaded=1;
+		}
+		break;
+		case 2: //hazardous
+		if(weight<=15000 && count%2!=0){
+			//can be loaded
+			loaded=1;
+		}
+		break;
+		case 3: //refrigerated
+		if (weight<=18000){
+			//can be loaded
+			loaded=1;
+		}
+		break;
+		default: printf("Invalid cargo type entered!\n");
+		break;
+	}
+if (loaded==1){ printf("Allowed to be loaded\n");
+} else { printf("Error! conditions of loading not met\n");
+		}
+		
+rem1= (int)weight%97;
+rem2= rem1%100;
+printf("Tracking code: %d\n", rem2);
+		
+} 
+return 0;
 }
