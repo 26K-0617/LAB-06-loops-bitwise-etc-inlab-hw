@@ -1,0 +1,79 @@
+#include <stdio.h>
+int main(){
+	int lights=1;//0001 
+	int heater=2; //0010
+	int ac=4; //0100
+	int cam=8; //1000
+	int current, option;
+
+printf("Lights=1, Water heater=2, Air conditioner=4, Security camera=8\n");
+printf("\nEnter combined appliance value (0-15, or -1 to exit): ");
+    scanf("%d", &current);
+
+    // Keep asking if the input is out of range (-2 or more than 15 except -1)
+while (current < -1 || current > 15) {
+        printf("Invalid input! Please enter a value between 0 and 15, or -1 to exit: ");
+        scanf("%d", &current);
+}
+
+
+while (current!=-1){
+	printf("\nMenu:\n1= Switch the water heater ON regardless of whatever else is running\n");
+	printf("2= Switch the air conditioner OFF regardless of whatever else is running\n");
+	printf("3= Flip the main lights\n"); //opp to current state
+	printf("4= Report back whether the security camera is currently active\n"); //w/o changing anything
+	printf("\nEnter option: ");
+	scanf("%d",&option);
+	
+	switch(option){
+		case 1: //heater on is 2=0010 and we want it ON  (use OR)
+		//so if eg current is 5= 0101 then to make heater ON Use OR as baqi stays same but 1 on 3rdpos
+	    //if already heater on like if current is 7 =0111 (3rd pos is 1) then heater on still uses OR with heater=0010 baqisame and 3rd pos still is 1 
+	    current= current | heater;
+	    break;
+	    case 2: //ac=4=0100 and we wanna switch it OFF (use NOT mask and then AND)
+		//so if current is 0101=5 ac is on to turn off we need to switch only 2nd pos to zero 
+	    //so we use first NOT with 4 (ac on is 4) to make a mask, so not4 is 1011 2nd pos OFF then to make everything else to stay what is was before use & with current
+	    //0101 & 1011 is 0001 so ac off but also all same as before.
+	    current= current & ~ 4;
+	    break;
+	    case 3: //lights=1=0001 and we want to toggle (use XOR)
+		//opp to current with lights just use xor if current is 1100=12 lights are off
+	    //use xor with current(same gets0 and diff gets 1) to keep everything same except change light (in this case 0 to 1) 
+	    // 1100^0001= 1101 so all same except light got opposite(toggled) ON
+	    current= current ^ lights;
+	    break;
+	    case 4: //cam=8=1000 and we wanna CHECK IF ON OR NOT (use AND)
+		//report if active no change to anything use AND= isolates specific bit and sees if 1 or 0 for cams checks pos1
+	    //if current is 5=0101 cam is off but see 0101 & 1000= 0000 if ans =0 means cam was off
+	    //if current was 1111=15 then 1111 & 1000=1000 ans is exactly 8 means cam was ON.
+	    if ((current & 8)!=0){
+	    	printf("Security Cameras are ON\n");
+		}
+		else{ printf("Security cameras are OFF\n");
+		}
+		break;
+		default: printf("Invalid menu option entered.\n");
+		break;
+	}
+    //always tell new comb value question says
+    printf("New combined value= %d\n", current);
+    //mention utility's safety habit of whether ac and heater switched on together
+    //then 0100 ac and heater 0010 so ig combined is 0110 etc basically where 2nd and 3rd pos is 1
+    //to check if BOTH ON use AND 
+    //if current is 1111=15 then 1111 & 0110= 0110 ans is exactly 6 if both on and 0 if both off.
+    if ((current & 6)==6) {
+	printf("Overload! Both AC and water heater are switched ON\n");
+    }
+    
+	printf("\nEnter combined value for next  (0-15, or -1 to exit): ");
+    scanf("%d", &current);
+
+        // Keep asking if the next resident's input is out of bounds (like -3)
+        while (current < -1 || current > 15) {
+            printf("Invalid input! Please enter a value between 0 and 15, or -1 to exit: ");
+            scanf("%d", &current);
+        }
+    }
+return 0;
+}
